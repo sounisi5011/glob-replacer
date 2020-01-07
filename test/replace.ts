@@ -29,11 +29,14 @@ test('should replace filename extension - braces to braces', t => {
     );
 });
 
+test('should remove filename extension', t => {
+    t.is(globReplacer.replace('*.gz', '*', 'corge.tar.gz'), 'corge.tar');
+    t.is(globReplacer.replace('*.gz', '**/*', 'corge.tar.gz'), 'corge.tar.png');
+});
+
 test('should not replace', t => {
     t.is(globReplacer.replace('*.jpg', '*.*', 'corge.jpg'), 'corge.jpg');
-    t.is(globReplacer.replace('*.jpeg', '*', 'corge.jpeg'), 'corge.jpeg');
     t.is(globReplacer.replace('*.gif', '**', 'corge.gif'), 'corge.gif');
-    t.is(globReplacer.replace('*.png', '**/*', 'corge.png'), 'corge.png');
     t.is(globReplacer.replace('*.{jpg,jpeg}', '*.*', 'corge.jpg'), 'corge.jpg');
 });
 
